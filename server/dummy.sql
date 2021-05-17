@@ -146,3 +146,8 @@ FROM
           trim(LEADING
                FROM regexp_split_to_table(title, E',')) AS title
    FROM owners_1) AS foo;
+
+CREATE TABLE owner_corps AS
+SELECT DISTINCT filings,
+                cik
+FROM owners_raw;
