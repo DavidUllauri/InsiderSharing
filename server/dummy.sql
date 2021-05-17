@@ -23,31 +23,12 @@ SELECT
   cik, 
   company_name 
 FROM 
-  companies_raw
-;
+  companies_raw;
 
-CREATE TABLE owners_raw (
-  owner_name VARCHAR(64), 
-  filings  VARCHAR(64),
-  transaction_date DATE, 
-  title VARCHAR(255),
-  cik VARCHAR(32)
-);
-
-CREATE TABLE owners (
-  owner_name VARCHAR(64) NOT NULL, 
-  filings VARCHAR(64) NOT NULL, 
-  ticker VARCHAR(64) NOT NULL REFERENCES companies, 
-  transaction_date DATE, 
-  title VARCHAR(64), 
-  PRIMARY KEY (owner_name, ticker)
-);
 
 CREATE TABLE user_owners (
-  email VARCHAR(64) REFERENCES users, 
-  owner_name VARCHAR(64), 
-  ticker VARCHAR(64), 
-  FOREIGN KEY (owner_name, ticker) REFERENCES owners (owner_name, ticker)
+  filing_id VARCHAR(64) NOT NULL REFERENCES owners_names,
+  email VARCHAR(64) NOT NULL REFERENCES users
 );
 
 CREATE TABLE user_companies (
@@ -72,7 +53,8 @@ create table transactions_raw(
 );
 
 
-CREATE TABLE transactions_1
+-- This is the normailized transactions
+CREATE TABLE transactions
   (
      acquistion_or_disposition,
      transaction_date,
@@ -91,40 +73,62 @@ CREATE TABLE transactions_1
           filing_id
    FROM   transactions_raw);
 
+CREATE TABLE transactions(
+  acquistion_or_disposition VARCHAR(4),
+  transaction_date DATE,
+  transaction_type VARCHAR(32),
+  num_securities_transacted FLOAT,
+  num_securities_owned FLOAT,
+  company_cik VARCHAR(32) REFERENCES companies,
+  filing_id VARCHAR(64) REFERENCES owner_names
+); 
+
 
 COPY [Table Name](Optional Columns) 
 FROM 
   '[Absolute Path to File]' DELIMITER '[Delimiter Character]' CSV HEADER;
 
-select substr(title,1, position(':' in title)-1) title from owners_raw;
+-- select substr(title,1, position(':' in title)-1) title from owners_raw;
 
 
 
- select trim(leading from substr(title, position(':' in title)+1)) title from owners_raw;
+--  select trim(leading from substr(title, position(':' in title)+1)) title from owners_raw;
 
 
-select owner_name, filings, trim(leading from substr(title, position(':' in title)+1)) title from owners_raw;
+-- select owner_name, filings, trim(leading from substr(title, position(':' in title)+1)) title from owners_raw;
 
+CREATE TABLE owners_raw (
+  owner_name VARCHAR(64), 
+  filings  VARCHAR(64),
+  transaction_date DATE, 
+  title VARCHAR(255),
+  cik VARCHAR(32)
+);
 
+-- We use this table to split it into two table owners_titles and owners_names
 CREATE owners_1 (owner_name, filings, title) AS
-(
-       SELECT owner_name,
-              filings,
-              trim(leading FROM substr(title, position(':' IN title)+1)) title
-       FROM   owners_raw);
+  (SELECT owner_name,
+          filings,
+          trim(LEADING
+               FROM substr(title, position(':' IN title)+1)) title
+   FROM owners_raw);
 
 
 
 
-SELECT 
-    yourTable.ID, 
-    regexp_split_to_table(yourTable.fruits, E',') AS split_fruits
-FROM yourTable
+-- SELECT 
+--     yourTable.ID, 
+--     regexp_split_to_table(yourTable.fruits, E',') AS split_fruits
+-- FROM yourTable
 
-select owner_name, filings, regexp_split_to_table(title, E',') AS split from owners_1;
+-- select owner_name, filings, regexp_split_to_table(title, E',') AS split from owners_1;
 
-
-
+-- owner_titles
+CREATE TABLE owner_titles
+  (
+     filings VARCHAR(64) REFERENCES owner_names,
+     title   VARCHAR(255)
+  ); 
 
 CREATE TABLE owner_titles AS
 SELECT filings,
@@ -137,6 +141,14 @@ FROM
    FROM owners_1) AS foo;
 
 
+-- owner_names
+CREATE TABLE owner_names
+  (
+     filings    VARCHAR(64) PRIMARY KEY,
+     owner_name VARCHAR(32)
+  ); 
+
+
 CREATE TABLE owner_names AS
 SELECT DISTINCT filings,
                 owner_name
@@ -147,7 +159,18 @@ FROM
                FROM regexp_split_to_table(title, E',')) AS title
    FROM owners_1) AS foo;
 
+
+-- owner_corps
+CREATE TABLE owner_corps
+  (
+     filings VARCHAR(64) REFERENCES owner_names,
+     cik     VARCHAR(32) REFERENCES companies,
+  ); 
+
+
 CREATE TABLE owner_corps AS
 SELECT DISTINCT filings,
                 cik
 FROM owners_raw;
+
+
