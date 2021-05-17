@@ -37,7 +37,7 @@ dicts = df.to_dict()
 # pprint(dicts)
 
 # It's good
-df.to_csv(f'company_owners_{cik}.csv', index=False)
+df.to_csv(f'owners_{cik}.csv', index=False)
 
 
 print()
@@ -62,4 +62,4 @@ dfs[0]['filing_no'] = file_cik
 for df in dfs:
     print(df)
 
-df.to_csv(f'owner_transactions_{cik}_{file_cik}.csv', index=False)
+df.to_csv(f'transactions_{cik}_{file_cik}.csv', index=False)

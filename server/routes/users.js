@@ -1,31 +1,57 @@
 require('dotenv').config();
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 const db = require('../db');
+const { check, validationResult } = require('express-validator');
 
 // @desc     Add a user
-router.post('/', async (req, res) => {
-  console.log(req.body);
+router.post(
+  '/',
+  check('email', 'Please include a valid email').isEmail(),
+  check(
+    'password',
+    'Please enter a password with 6 or more characters',
+  ).isLength({ min: 6 }),
+  check('last_name', 'Please add last name').notEmpty(),
+  check('first_name', 'Please add first name').notEmpty(),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
-  try {
-    const { email, password, last_name, first_name } = req.body;
-    const results = await db.query(
-      'INSERT INTO users (email, password, last_name, first_name) values ($1,$2,$3,$4) returning *',
-      [email, password, last_name, first_name]
-    );
-    console.log(results);
-    res.status(201).json({
-      status: 'success',
-      results: results.rows.length,
-      data: {
-        users: results.rows,
-      },
-    });
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Eror');
+    // console.log(req.body);
+
+    try {
+      const { email, password, last_name, first_name } = req.body;
+
+      const user = await db.query('SELECT * FROM users WHERE email = $1', [email]);
+
+      if (user.rows.length > 0) {
+        return res.status(400).json({ msg: 'User already exists' });
+      }
+
+      const results = await db.query(
+        'INSERT INTO users (email, password, last_name, first_name) values ($1,$2,$3,$4) returning *',
+        [email, password, last_name, first_name]
+      );
+
+      // console.log(results);
+
+      res.status(201).json({
+        status: 'success',
+        results: results.rows.length,
+        data: {
+          users: results.rows,
+        },
+      });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Eror');
+    }
   }
-});
+);
 
 // @desc     Update a user
 router.put('/:id', async (req, res) => {
@@ -82,31 +108,6 @@ router.get('/', async (req, res) => {
       },
     });
   } catch (err) {
-    res.status(500).send('Server Eror');
-  }
-});
-
-// USER COMPANIES STUFF
-// @desc     Add a company
-router.post('/company', async (req, res) => {
-  console.log(req.body);
-
-  try {
-    const { email, password, last_name, first_name } = req.body;
-    const results = await db.query(
-      'INSERT INTO users (email, password, last_name, first_name) values ($1,$2,$3,$4) returning *',
-      [email, password, last_name, first_name]
-    );
-    console.log(results);
-    res.status(201).json({
-      status: 'success',
-      results: results.rows.length,
-      data: {
-        users: results.rows,
-      },
-    });
-  } catch (err) {
-    console.error(err.message);
     res.status(500).send('Server Eror');
   }
 });
