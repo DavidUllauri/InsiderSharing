@@ -25,15 +25,15 @@ SELECT
 FROM 
   companies_raw;
 
-
-CREATE TABLE user_owners (
-  filing_id VARCHAR(64) NOT NULL REFERENCES owners_names,
-  email VARCHAR(64) NOT NULL REFERENCES users
-);
-
 CREATE TABLE user_companies (
   email VARCHAR(64) REFERENCES users, 
   ticker VARCHAR(64) REFERENCES companies
+);
+
+
+CREATE TABLE user_owners (
+  filing_id VARCHAR(64) NOT NULL REFERENCES owner_names,
+  email VARCHAR(64) NOT NULL REFERENCES users
 );
 
 create table transactions_raw(
@@ -54,34 +54,56 @@ create table transactions_raw(
 
 
 -- This is the normailized transactions
-CREATE TABLE transactions
-  (
-     acquistion_or_disposition,
-     transaction_date,
-     transaction_type,
-     num_securities_transacted,
-     number_securities_owned,
-     company_cik,
-     filing_id
-  )AS
-  (SELECT acquistion_or_disposition,
-          transaction_date,
-          transaction_type,
-          num_securities_transacted,
-          number_securities_owned,
-          company_cik,
-          filing_id
-   FROM   transactions_raw);
+-- CREATE TABLE transactions
+--   (
+    --  acquistion_or_disposition,
+    --  transaction_date,
+    --  transaction_type,
+    --  num_securities_transacted,
+    --  number_securities_owned,
+    --  company_cik,
+    --  filing_id
+--   )AS
+--   (SELECT acquistion_or_disposition,
+--           transaction_date,
+--           transaction_type,
+--           num_securities_transacted,
+--           number_securities_owned,
+--           company_cik,
+--           filing_id
+--    FROM   transactions_raw);
 
+-- TODO come back after owner names
 CREATE TABLE transactions(
   acquistion_or_disposition VARCHAR(4),
   transaction_date DATE,
   transaction_type VARCHAR(32),
   num_securities_transacted FLOAT,
   num_securities_owned FLOAT,
-  company_cik VARCHAR(32) REFERENCES companies,
+  company_cik VARCHAR(32),
   filing_id VARCHAR(64) REFERENCES owner_names
-); 
+);
+
+INSERT INTO transactions (
+  acquistion_or_disposition,
+  transaction_date,
+  transaction_type,
+  num_securities_transacted,
+  num_securities_owned,
+  company_cik,
+  filing_id
+) 
+SELECT 
+  DISTINCT 
+  acquistion_or_disposition,
+  transaction_date,
+  transaction_type,
+  num_securities_transacted,
+  number_securities_owned,
+  company_cik,
+  filing_id 
+FROM 
+  transactions_raw;
 
 
 COPY [Table Name](Optional Columns) 
@@ -105,7 +127,7 @@ CREATE TABLE owners_raw (
   cik VARCHAR(32)
 );
 
--- We use this table to split it into two table owners_titles and owners_names
+-- We use this table to split it into two table owners_titles and owner_names
 CREATE owners_1 (owner_name, filings, title) AS
   (SELECT owner_name,
           filings,
@@ -125,10 +147,23 @@ CREATE owners_1 (owner_name, filings, title) AS
 
 -- owner_titles
 CREATE TABLE owner_titles
-  (
-     filings VARCHAR(64) REFERENCES owner_names,
-     title   VARCHAR(255)
-  ); 
+(
+  filings VARCHAR(64) REFERENCES owner_names,
+  title   VARCHAR(255)
+);
+
+INSERT INTO owner_titles (filings, title) 
+SELECT 
+  DISTINCT 
+  filings, 
+  split as title
+FROM (
+  select owner_name, filings, trim(LEADING FROM regexp_split_to_table(title, E',')) AS split from
+  (SELECT owner_name,
+          filings,
+          trim(LEADING
+               FROM substr(title, position(':' IN title)+1)) title
+   FROM owners_raw) as foo) as foo2;
 
 CREATE TABLE owner_titles AS
 SELECT filings,
@@ -143,10 +178,18 @@ FROM
 
 -- owner_names
 CREATE TABLE owner_names
-  (
-     filings    VARCHAR(64) PRIMARY KEY,
-     owner_name VARCHAR(32)
-  ); 
+(
+  filings    VARCHAR(64) PRIMARY KEY,
+  owner_name VARCHAR(64)
+);
+
+INSERT INTO owner_names (filings, owner_name) 
+SELECT 
+  DISTINCT 
+  filings, 
+  owner_name 
+FROM 
+  owners_raw;
 
 
 CREATE TABLE owner_names AS
@@ -162,10 +205,18 @@ FROM
 
 -- owner_corps
 CREATE TABLE owner_corps
-  (
-     filings VARCHAR(64) REFERENCES owner_names,
-     cik     VARCHAR(32) REFERENCES companies,
-  ); 
+(
+  filings VARCHAR(64) REFERENCES owner_names,
+  cik     VARCHAR(32)
+);
+
+INSERT INTO owner_corps (filings, cik) 
+SELECT 
+  DISTINCT 
+  filings, 
+  cik 
+FROM 
+  owners_raw;
 
 
 CREATE TABLE owner_corps AS
@@ -174,3 +225,16 @@ SELECT DISTINCT filings,
 FROM owners_raw;
 
 
+CREATE TABLE owners_raw (
+  owner_name VARCHAR(64), 
+  filings  VARCHAR(64),
+  transaction_date DATE, 
+  title VARCHAR(255),
+  cik VARCHAR(32)
+);
+
+CREATE TABLE companies (
+  cik VARCHAR(32) NOT NULL, 
+  ticker VARCHAR(32) NOT NULL PRIMARY KEY, 
+  company_name VARCHAR(255) NOT NULL
+);
