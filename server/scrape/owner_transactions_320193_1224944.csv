@@ -1,0 +1,56 @@
+Acquistion or Disposition,Transaction Date,Deemed Execution Date,Issuer,Form,Transaction Type,Direct or Indirect Ownership,Number of Securities Transacted,Number of Securities Owned,Line Number,Issuer CIK,Security Name,filing_no
+A,2021-02-23,,Apple Inc.,4,A-Award,--D,1986.0,1986.0,1,320193,Restricted Stock Unit,1224944
+D,2021-02-01,,Apple Inc.,4,M-Exempt,--D,3416.0,0.0,2,320193,Restricted Stock Unit,1224944
+A,2021-02-01,,Apple Inc.,4,M-Exempt,--D,3416.0,463472.0,1,320193,Common Stock,1224944
+A,2020-02-26,,Apple Inc.,4,A-Award,--D,854.0,854.0,1,320193,Restricted Stock Unit,1224944
+A,2020-02-01,,Apple Inc.,4,M-Exempt,--D,1429.0,115014.0,1,320193,Common Stock,1224944
+D,2020-02-01,,Apple Inc.,4,M-Exempt,--D,1429.0,0.0,2,320193,Restricted Stock Unit,1224944
+D,2020-01-27,,Apple Inc.,4,M-Exempt,--D,32889.0,0.0,2,320193,Director Stock Option (Right to Buy),1224944
+A,2020-01-27,,Apple Inc.,4,M-Exempt,--D,32889.0,113585.0,1,320193,Common Stock,1224944
+A,2019-03-01,,APPLE INC,4,A-Award,--D,1429.0,1429.0,1,320193,Restricted Stock Unit,1224944
+D,2019-02-01,,APPLE INC,4,M-Exempt,--D,1521.0,0.0,2,320193,Restricted Stock Unit,1224944
+A,2019-02-01,,APPLE INC,4,M-Exempt,--D,1521.0,80696.0,1,320193,Common Stock,1224944
+D,2019-01-24,,APPLE INC,4,M-Exempt,--D,35000.0,0.0,2,320193,Director Stock Option (Right to Buy),1224944
+A,2019-01-24,,APPLE INC,4,M-Exempt,--D,35000.0,79175.0,1,320193,Common Stock,1224944
+A,2018-02-13,,APPLE INC,4,A-Award,--D,1521.0,1521.0,1,320193,Restricted Stock Unit,1224944
+D,2018-02-06,,APPLE INC,4,M-Exempt,--D,35000.0,0.0,2,320193,Director Stock Option (Right to Buy),1224944
+A,2018-02-06,,APPLE INC,4,M-Exempt,--D,35000.0,44175.0,1,320193,Common Stock,1224944
+A,2018-02-01,,APPLE INC,4,M-Exempt,--D,1825.0,9175.0,1,320193,Common Stock,1224944
+D,2018-02-01,,APPLE INC,4,M-Exempt,--D,1825.0,0.0,2,320193,Restricted Stock Unit,1224944
+A,2017-02-28,,APPLE INC,4,A-Award,--D,1825.0,1825.0,1,320193,Restricted Stock Unit,1224944
+D,2017-02-22,,APPLE INC,4,S-Sale,--D,215437.0,230137.0,1,320193,Common Stock,1224944
+D,2017-02-02,,APPLE INC,4,S-Sale,--D,2200.0,445574.0,4,320193,Common Stock,1224944
+A,2017-02-02,,APPLE INC,4,M-Exempt,--D,70000.0,515574.0,2,320193,Common Stock,1224944
+D,2017-02-02,,APPLE INC,4,S-Sale,--D,67800.0,447774.0,3,320193,Common Stock,1224944
+D,2017-02-02,,APPLE INC,4,M-Exempt,--D,70000.0,0.0,6,320193,Director Stock Option (Right to Buy),1224944
+A,2017-02-01,,APPLE INC,4,M-Exempt,--D,2580.0,445574.0,1,320193,Common Stock,1224944
+D,2017-02-01,,APPLE INC,4,M-Exempt,--D,2580.0,0.0,5,320193,Restricted Stock Unit,1224944
+A,2016-02-26,,APPLE INC,4,A-Award,--D,2580.0,2580.0,1,320193,Restricted Stock Unit,1224944
+D,2016-02-01,,APPLE INC,4,M-Exempt,--D,2008.0,0.0,2,320193,Restricted Stock Unit,1224944
+A,2016-02-01,,APPLE INC,4,M-Exempt,--D,2008.0,442994.0,1,320193,Common Stock,1224944
+A,2015-03-10,,APPLE INC,4,A-Award,--D,2008.0,2008.0,1,320193,Restricted Stock Unit,1224944
+D,2015-02-01,,APPLE INC,4,M-Exempt,--D,3325.0,0.0,2,320193,Restricted Stock Unit,1224944
+A,2015-02-01,,APPLE INC,4,M-Exempt,--D,3325.0,440986.0,1,320193,Common Stock,1224944
+A,2014-02-28,,APPLE INC,4,A-Award,--D,475.0,475.0,1,320193,Restricted Stock Unit,1224944
+D,2014-02-01,,APPLE INC,4,M-Exempt,--D,562.0,0.0,2,320193,Restricted Stock Unit,1224944
+A,2014-02-01,,APPLE INC,4,M-Exempt,--D,562.0,62523.0,1,320193,Common Stock,1224944
+A,2013-02-27,,APPLE INC,4,A-Award,--D,562.0,562.0,1,320193,Restricted Stock Unit,1224944
+A,2013-02-01,,APPLE INC,4,M-Exempt,--D,387.0,61961.0,1,320193,Common Stock,1224944
+D,2013-02-01,,APPLE INC,4,M-Exempt,--D,387.0,0.0,2,320193,Restricted Stock Unit,1224944
+D,2013-01-15,,APPLE INC,4,M-Exempt,--D,59000.0,0.0,2,320193,Director Stock Option (Right to Buy),1224944
+A,2013-01-15,,APPLE INC,4,M-Exempt,--D,59000.0,61574.0,1,320193,Common Stock,1224944
+A,2012-02-23,,APPLE INC,4,A-Award,--D,387.0,387.0,1,320193,Restricted Stock Unit,1224944
+D,2012-02-01,,APPLE INC,4,M-Exempt,--D,584.0,0.0,2,320193,Restricted Stock Unit,1224944
+A,2012-02-01,,APPLE INC,4,M-Exempt,--D,584.0,2574.0,1,320193,Common Stock,1224944
+A,2011-02-23,,APPLE INC,4,A-Award,--D,584.0,584.0,1,320193,Restricted Stock Unit,1224944
+A,2011-02-01,,APPLE INC,4,M-Exempt,--D,990.0,1990.0,1,320193,Common Stock,1224944
+D,2011-02-01,,APPLE INC,4,M-Exempt,--D,990.0,0.0,2,320193,Restricted Stock Unit,1224944
+A,2010-02-25,,APPLE INC,4,A-Award,--D,990.0,990.0,2,320193,Restricted Stock Unit,1224944
+A,2010-02-25,,APPLE INC,4,A-Award,--D,9397.0,9397.0,1,320193,Director Stock Option,1224944
+A,2009-03-19,,APPLE INC,4,A-Award,--D,10000.0,10000.0,1,320193,Director Stock Option,1224944
+A,2008-03-19,,APPLE INC,4,A-Award,--D,10000.0,10000.0,1,320193,Director Stock Option,1224944
+D,2008-01-28,,APPLE INC,4,M-Exempt,--D,400.0,59000.0,4,320193,Director Stock Option (right to buy),1224944
+A,2008-01-28,,APPLE INC,4,M-Exempt,--D,400.0,1000.0,2,320193,Common Stock,1224944
+D,2008-01-25,,APPLE INC,4,M-Exempt,--D,600.0,59400.0,3,320193,Director Stock Option (right to buy),1224944
+A,2008-01-25,,APPLE INC,4,M-Exempt,--D,600.0,600.0,1,320193,Common Stock,1224944
+A,2007-03-19,2007-03-19,APPLE INC,4,A-Award,--D,10000.0,10000.0,1,320193,Director Stock Option,1224944
