@@ -1,3 +1,10 @@
 export const GET_COMPANIES = 'GET_COMPANIES';
 export const COMPANY_ERROR = 'COMPANY_ERROR';
+
+export const GET_OWNERS = 'GET_OWNERS';
+export const OWNER_ERROR = 'OWNER_ERROR';
+
+export const GET_TRANSACTIONS = 'GET_TRANSACTIONS';
+export const TRANSACTIONS_ERROR = 'TRANSACTIONS_ERROR';
+
 export const CLEAR_CURRENT = 'CLEAR_CURRENT';

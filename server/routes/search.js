@@ -63,7 +63,7 @@ router.get('/:ticker', async (req, res) => {
             status: 'success',
             results: owners.rows.length,
             data: {
-                companies: owners.rows,
+                owners: owners.rows,
             },
         });
     } catch (err) {
