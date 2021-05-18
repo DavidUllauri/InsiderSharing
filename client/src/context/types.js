@@ -1,0 +1,3 @@
+export const GET_COMPANIES = 'GET_COMPANIES';
+export const COMPANY_ERROR = 'COMPANY_ERROR';
+export const CLEAR_CURRENT = 'CLEAR_CURRENT';

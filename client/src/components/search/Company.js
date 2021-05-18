@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import CompanyContext from '../../context/company/companyContext';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -26,22 +27,26 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function generate(element) {
-    return [0, 1, 2].map((value) =>
-        React.cloneElement(element, {
-            key: value,
-        }),
-    );
-}
-
 const Company = () => {
     const classes = useStyles();
-    const [dense, setDense] = React.useState(false);
-    const [secondary, setSecondary] = React.useState(false);
+    const companyContext = useContext(CompanyContext);
+
+    const { companies, loading } = companyContext;
+
+    if (companies === null && !loading) {
+        return (
+            <Container>
+                <Typography color="inherit" noWrap className={classes.toolbarTitle}>
+                    Search for company
+                </Typography>
+            </Container>
+        );
+    }
+
     return (
         <Container>
             <div className={classes.demo}>
-                <List dense={dense}>
+                <List>
                     <ListItem id={classes.header} className={classes.grid} divider={true} button={true}>
                         <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
                             Ticker
@@ -50,18 +55,18 @@ const Company = () => {
                             Company Name
                         </Typography>
                     </ListItem>
-                    {generate(
-                        <ListItem className={classes.grid} divider={true} button={true}>
-                            <ListItemText
-                                primary="Ticker"
-                                secondary={secondary ? 'Secondary text' : null}
-                            />
-                            <ListItemText
-                                primary="Company name"
-                                secondary={secondary ? 'Secondary text' : null}
-                            />
-                        </ListItem>,
-                    )}
+                    {companies && companies.map((company) => {
+                        return (
+                            <ListItem className={classes.grid} divider={true} button={true} key={company.ticker}>
+                                <ListItemText
+                                    primary={company.ticker}
+                                />
+                                <ListItemText
+                                    primary={company.company_name}
+                                />
+                            </ListItem>
+                        );
+                    })}
                 </List>
             </div>
         </Container>
