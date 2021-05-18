@@ -1,0 +1,28 @@
+{
+  "name": "bosstrades",
+  "version": "1.0.0",
+  "description": "Insider trading info",
+  "main": "index.js",
+  "scripts": {
+    "api": "npm run server --prefix server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run api\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichelleLucero/bosstrades.git"
+  },
+  "keywords": [
+    "sec"
+  ],
+  "author": "Michelle Lucero, David Ullauri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MichelleLucero/bosstrades/issues"
+  },
+  "homepage": "https://github.com/MichelleLucero/bosstrades#readme",
+  "devDependencies": {
+    "concurrently": "^6.1.0"
+  }
+}
