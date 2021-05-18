@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 // import Link from '@material-ui/core/Link';
 // import { Link } from 'react-router-dom';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+// import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,11 +26,11 @@ const useStyles = makeStyles((theme) => ({
 const Navbar = () => {
     const classes = useStyles();
 
-    const authLinks = (
-        <Fragment>
-            <AccountCircleIcon />
-        </Fragment>
-    )
+    // const authLinks = (
+    //     <Fragment>
+    //         <AccountCircleIcon />
+    //     </Fragment>
+    // )
 
     const guestLinks = (
         <Fragment>
