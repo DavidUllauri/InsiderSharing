@@ -41,7 +41,7 @@ const TransactionsList = () => {
         // eslint-disable-next-line
     }, []);
 
-    if (transactions === null) {
+    if (transactions === null && !loading) {
         return (
             <Container>
                 <Typography color="inherit" noWrap className={classes.toolbarTitle}>

@@ -39,13 +39,23 @@ router.post(
 
       // console.log(results);
 
-      res.status(201).json({
-        status: 'success',
-        results: results.rows.length,
-        data: {
-          users: results.rows,
+      const payload = {
+        user: {
+          id: results.rows[0].id
+        }
+      }
+
+      jwt.sign(
+        payload,
+        process.env.JWTSECRET,
+        {
+          expiresIn: 360000,
         },
-      });
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        },
+      );
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Eror');

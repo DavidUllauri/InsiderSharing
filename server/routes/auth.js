@@ -49,7 +49,6 @@ router.post(
 
             if (isMatch.rows.length === 0) {
                 // Message creates a security risk remove in production
-                console.log("hey look at me");
                 return res.status(400).json({ msg: 'Invalid Credentials' });
             }
 

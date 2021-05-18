@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext, useEffect } from 'react'
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-// import Link from '@material-ui/core/Link';
-// import { Link } from 'react-router-dom';
-// import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AuthContext from '../../context/auth/authContext';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,25 +21,53 @@ const useStyles = makeStyles((theme) => ({
     link: {
         margin: theme.spacing(1, 1.5),
     },
+    attrLinks: {
+        color: 'black',
+        textDecoration: "none",
+    },
 }));
 
 const Navbar = () => {
     const classes = useStyles();
+    const authContext = useContext(AuthContext);
 
-    // const authLinks = (
-    //     <Fragment>
-    //         <AccountCircleIcon />
-    //     </Fragment>
-    // )
+    const { isAuthenticated, logout,
+        // user, 
+        loadUser } = authContext;
+
+    useEffect(() => {
+        loadUser();
+        // eslint-disable-next-line
+    }, []);
+
+    const onLogout = () => {
+        logout();
+        // clearContacts();
+    };
+
+    const authLinks = (
+        <Fragment>
+            <Button color="primary" variant="outlined" className={classes.link}>
+                <AccountCircleIcon />
+            </Button>
+            <Button color="primary" variant="outlined" className={classes.link} onClick={onLogout}>
+                Logout
+            </Button>
+        </Fragment>
+    )
 
     const guestLinks = (
         <Fragment>
-            <Button href="#" color="primary" variant="outlined" className={classes.link}>
-                Register
+            <Link className={classes.attrLinks} to='/register'>
+                <Button color="primary" variant="outlined" className={classes.link}>
+                    Register
             </Button>
-            <Button href="#" color="primary" variant="outlined" className={classes.link}>
-                Login
-            </Button>
+            </Link>
+            <Link className={classes.attrLinks} to='/login'>
+                <Button color="primary" variant="outlined" className={classes.link}>
+                    Login
+                </Button>
+            </Link>
         </Fragment>
     )
 
@@ -47,10 +75,12 @@ const Navbar = () => {
         <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
             <Toolbar className={classes.toolbar}>
                 <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-                    🚀 Boss Trades
+                    <Link className={classes.attrLinks} to='/'>
+                        🚀 Boss Trades
+                    </Link>
                 </Typography>
                 <nav>
-                    {guestLinks}
+                    {isAuthenticated ? authLinks : guestLinks}
                 </nav>
             </Toolbar>
         </AppBar>
