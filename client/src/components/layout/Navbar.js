@@ -47,9 +47,11 @@ const Navbar = () => {
 
     const authLinks = (
         <Fragment>
-            <Button color="primary" variant="outlined" className={classes.link}>
-                <AccountCircleIcon />
-            </Button>
+            <Link className={classes.attrLinks} to='/profile'>
+                <Button color="primary" variant="outlined" className={classes.link}>
+                    <AccountCircleIcon />
+                </Button>
+            </Link>
             <Button color="primary" variant="outlined" className={classes.link} onClick={onLogout}>
                 Logout
             </Button>

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { Fragment, useContext } from 'react'
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -8,6 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
 import CompanyContext from '../../context/company/companyContext';
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import ProfileContext from '../../context/profile/profileContext';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
     grid: {
         display: "grid",
-        gridTemplateColumns: "1fr 3fr",
+        gridTemplateColumns: "1fr 3fr 1fr",
     },
     header: {
         fontSize: '50px',
@@ -36,8 +39,10 @@ const useStyles = makeStyles((theme) => ({
 const Company = () => {
     const classes = useStyles();
     const companyContext = useContext(CompanyContext);
+    const profileContext = useContext(ProfileContext)
 
     const { companies, loading } = companyContext;
+    const { addCompany } = profileContext;
 
     if (companies === null && !loading) {
         return (
@@ -47,6 +52,10 @@ const Company = () => {
                 </Typography>
             </Container>
         );
+    }
+
+    const onFollow = () => {
+        addCompany(companies[0].ticker);
     }
 
     return (
@@ -63,16 +72,21 @@ const Company = () => {
                     </ListItem>
                     {companies && companies.map((company) => {
                         return (
-                            <Link className={classes.attrLinks} to={company.ticker && company.ticker} key={company.ticker}>
-                                <ListItem className={classes.grid} divider={true} button={true}>
-                                    <ListItemText
-                                        primary={company.ticker}
-                                    />
-                                    <ListItemText
-                                        primary={company.company_name}
-                                    />
-                                </ListItem>
-                            </Link>
+                            <Fragment>
+                                <Link className={classes.attrLinks} to={company.ticker && company.ticker} key={company.ticker}>
+                                    <ListItem className={classes.grid} divider={true} button={true}>
+                                        <ListItemText
+                                            primary={company.ticker}
+                                        />
+                                        <ListItemText
+                                            primary={company.company_name}
+                                        />
+                                    </ListItem>
+                                </Link>
+                                <Button color="primary" variant="outlined" className={classes.link} onClick={onFollow}>
+                                    Follow
+                                    </Button>
+                            </Fragment>
                         );
                     })}
                 </List>

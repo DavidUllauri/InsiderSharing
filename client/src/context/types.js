@@ -17,3 +17,10 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+
+export const GET_FOLLOWING = 'GET_FOLLOWING';
+export const GET_USER_OWNERS = 'GET_USER_OWNERS';
+export const GET_USER_COMPANIES = 'GET_USER_COMPANIES';
+export const ADD_USER_OWNERS = 'GET_USER_OWNERS';
+export const ADD_USER_COMPANIES = 'GET_USER_COMPANIES';
+export const USER_ERROR = 'USER_ERROR';
