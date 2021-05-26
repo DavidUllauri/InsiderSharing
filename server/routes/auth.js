@@ -12,7 +12,7 @@ const { check, validationResult } = require('express-validator')
 router.get('/', auth, async (req, res) => {
     try {
         const { id } = req.user;
-        const user = await db.query('SELECT * FROM users WHERE id = $1', [id]);
+        const user = await db.query('SELECT id, email, last_name, first_name FROM users WHERE id = $1', [id]);
         res.json(user.rows[0])
     } catch (err) {
         console.error(err.message);
