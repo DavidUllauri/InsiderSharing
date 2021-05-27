@@ -54,7 +54,8 @@ const Company = () => {
         );
     }
 
-    const onFollow = () => {
+    const onFollow = e => {
+        e.preventDefault();
         addCompany(companies[0].ticker);
     }
 
@@ -81,11 +82,11 @@ const Company = () => {
                                         <ListItemText
                                             primary={company.company_name}
                                         />
+                                        <Button color="primary" variant="outlined" className={classes.link} onClick={(e) => onFollow(e)}>
+                                            Follow
+                                        </Button>
                                     </ListItem>
                                 </Link>
-                                <Button color="primary" variant="outlined" className={classes.link} onClick={onFollow}>
-                                    Follow
-                                    </Button>
                             </Fragment>
                         );
                     })}
