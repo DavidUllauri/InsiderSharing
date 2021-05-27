@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 const Company = () => {
     const classes = useStyles();
     const companyContext = useContext(CompanyContext);
-    const profileContext = useContext(ProfileContext)
+    const profileContext = useContext(ProfileContext);
 
     const { companies, loading } = companyContext;
     const { addCompany } = profileContext;

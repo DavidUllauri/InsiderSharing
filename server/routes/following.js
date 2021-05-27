@@ -12,6 +12,10 @@ router.post('/companies',
     auth,
     check('ticker', 'Ticker is required').notEmpty(),
     async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
 
         console.log(req.body);
 
@@ -56,6 +60,10 @@ router.post('/owners',
     auth,
     check('filing_id', 'filing_id is required').notEmpty(),
     async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
 
         console.log(req.body);
 

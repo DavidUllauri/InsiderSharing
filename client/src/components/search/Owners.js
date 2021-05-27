@@ -8,6 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import { Link, useParams } from 'react-router-dom';
 import OwnerContext from '../../context/owner/ownerContext';
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import ProfileContext from '../../context/profile/profileContext';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
     grid: {
         display: "grid",
-        gridTemplateColumns: "1fr 3fr",
+        gridTemplateColumns: "1fr 3fr 1fr",
     },
     header: {
         fontSize: '50px',
@@ -39,8 +42,10 @@ const Owners = () => {
 
 
     const ownerContext = useContext(OwnerContext);
+    const profileContext = useContext(ProfileContext);
 
     const { owners, getOwners, loading } = ownerContext;
+    const { addOwner } = profileContext;
 
     useEffect(() => {
         getOwners(ticker);
@@ -56,6 +61,12 @@ const Owners = () => {
             </Container>
         );
     }
+
+    const onFollow = (e, filing) => {
+        e.preventDefault();
+        addOwner(filing);
+    }
+
     return (
         <Container>
             <div className={classes.demo}>
@@ -79,6 +90,14 @@ const Owners = () => {
                                     <ListItemText
                                         primary={owner.owner_name}
                                     />
+                                    <Button
+                                        color="primary"
+                                        variant="outlined"
+                                        className={classes.link}
+                                        onClick={(e) => onFollow(e, owner.filings)}
+                                    >
+                                        Follow
+                                    </Button>
                                 </ListItem>
                             </Link>
                         );

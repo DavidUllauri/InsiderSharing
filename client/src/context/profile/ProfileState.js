@@ -63,7 +63,7 @@ const ProfileState = props => {
         }
     }
 
-    const addOwner = async filingID => {
+    const addOwner = async filing_id => {
         try {
             const config = {
                 headers: {
@@ -71,7 +71,7 @@ const ProfileState = props => {
                 }
             };
 
-            const res = await api.post('/following/companies', filingID, config);
+            const res = await api.post('/following/owners', { filing_id }, config);
 
             dispatch({
                 type: ADD_USER_OWNERS,
